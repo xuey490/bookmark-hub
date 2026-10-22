@@ -1,0 +1,35 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+# uv 托管的 Python 安装目录（UV_PYTHON_INSTALL_DIR 指向它）
+.uv-python/
+
+# Runtime data
+backend/data/
+*.db
+*.db-wal
+*.db-shm
+*.log
+
+# Node
+web/node_modules/
+web/dist/
+web/.vite/
+
+# Env / editor
+.env
+.DS_Store
+.idea/
+.vscode/
+
+# Backups
+backup/
+
+# Extension build artifacts / signing key
+release/
+*.crx
+*.pem

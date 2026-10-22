@@ -1,0 +1,39 @@
+[Unit]
+Description=Bookmark Hub (FastAPI + SQLite)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+
+# —— 按实际部署修改以下三项 ——
+User=bookmark
+Group=bookmark
+WorkingDirectory=/opt/bookmark-hub/backend
+
+# 刻意不使用 EnvironmentFile：应用自己通过 pydantic-settings 读取 backend/.env
+# （Settings.model_config.env_file）。若再加 EnvironmentFile，systemd 会先解析一遍
+# 并以「进程环境变量」身份注入，优先级高于 .env，而且 systemd 会处理反斜杠转义，
+# 把 BK_DEMO_WRITE_ALLOWLIST 里的 \d 变成 d+，导致正则静默失效。
+# 关闭 Python 输出缓冲，否则 journalctl 里的日志会延迟成批出现
+Environment=PYTHONUNBUFFERED=1
+
+# 用 venv 内的解释器执行模块，不依赖 bin/uvicorn 脚本的可执行位；
+# 也避免 uvicorn 脚本 shebang 指向的 Python 不可访问时出现 203/EXEC。
+ExecStart=/opt/bookmark-hub/backend/.venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --workers 1
+
+Restart=always
+RestartSec=3
+# 给 uvicorn 留出优雅关闭（关闭连接、释放 SQLite）的时间
+TimeoutStopSec=20
+
+NoNewPrivileges=true
+PrivateTmp=true
+
+# 可选加固：如果数据目录不在 WorkingDirectory 下，请同步修改 ReadWritePaths
+# ProtectSystem=full
+# ProtectHome=read-only
+# ReadWritePaths=/opt/bookmark-hub/backend/data
+
+[Install]
+WantedBy=multi-user.target

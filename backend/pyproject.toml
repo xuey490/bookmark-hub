@@ -1,0 +1,44 @@
+[project]
+name = "bookmark-hub-backend"
+version = "1.0.0"
+description = "Bookmark Hub 自托管网络书签系统后端（FastAPI + SQLAlchemy async + SQLite）"
+requires-python = ">=3.13"
+# 许可证与项目根目录的 LICENSE 保持一致
+# PEP 639 写法：直接写 SPDX 表达式，不要再配 "License :: OSI Approved :: MIT License" 分类器
+license = "MIT"
+authors = [{ name = "xuey490" }]
+
+# 运行依赖：与 requirements.txt 保持一致
+dependencies = [
+    "fastapi>=0.145,<1",
+    "uvicorn[standard]>=0.30",
+    "sqlalchemy[asyncio]>=2.0,<3",
+    "aiosqlite>=0.20",
+    "pydantic>=2.8,<3",
+    "pydantic-settings>=2.4",
+    "httpx>=0.27,<1",
+    "apscheduler>=3.10,<4",
+    "beautifulsoup4>=4.12",
+    "python-multipart>=0.0.9",
+    "rich>=15.0.0",
+]
+
+# 开发/测试依赖：uv sync 默认会一并安装
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=0.23",
+    "respx>=0.21",
+]
+
+[tool.uv]
+# 本项目是应用而非可发布的库：不构建、不安装自身包。
+# 运行时 `uv run` 以 backend/ 为工作目录，app 包可直接导入。
+package = false
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+# 让 `uv run pytest` 也能直接 import app（等价于 python -m pytest）
+pythonpath = ["."]
+filterwarnings = ["ignore::DeprecationWarning"]

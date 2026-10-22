@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="no-referrer" />
+    <title>Bookmark Hub</title>
+    <link rel="stylesheet" href="newtab.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <div>
+          <p class="date" id="date"></p>
+          <h1>最近收藏</h1>
+        </div>
+        <form class="search" id="searchForm">
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="搜索收藏，回车打开远程收藏夹"
+            autocomplete="off"
+          />
+        </form>
+      </header>
+
+      <main>
+        <div id="loading" class="loading">加载中…</div>
+
+        <div id="grid" class="grid hidden"></div>
+
+        <div id="empty" class="empty hidden">
+          <p>还没有收藏</p>
+          <span>安装插件后打开任意网页，点击右下角按钮即可收藏。</span>
+        </div>
+
+        <div id="setup" class="empty hidden">
+          <p>还没有连接服务器</p>
+          <span>请点击浏览器工具栏的 Bookmark Hub 图标，填写服务器地址和 Token。</span>
+          <button class="primary" id="setupButton" type="button">打开插件设置</button>
+        </div>
+
+        <div id="error" class="empty hidden">
+          <p>加载失败</p>
+          <span id="errorText"></span>
+          <button class="primary" id="retryButton" type="button">重试</button>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <button id="openAll" type="button">打开完整收藏夹</button>
+        <button id="openSettings" type="button">插件设置</button>
+        <span class="footer-brand">Bookmark Hub</span>
+      </footer>
+    </div>
+    <script src="newtab.js"></script>
+  </body>
+</html>

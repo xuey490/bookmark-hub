@@ -1,0 +1,547 @@
+:root {
+  color: #1f1f1f;
+  background: #f5f6f8;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, 'Noto Sans SC', sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+.app-layout {
+  min-height: 100vh;
+}
+
+.app-sider {
+  background: #001529;
+}
+
+/* 侧边栏固定在视口左侧：右侧内容纵向滚动时菜单保持不动。
+   显式设置高度，避免 flex 的 stretch 把它拉成整页高度导致 sticky 失效。 */
+.app-layout .app-sider {
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.brand {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 18px;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.brand-mark {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #1677ff, #69b1ff);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #fff;
+}
+
+.brand-name {
+  transition: opacity 0.2s;
+}
+
+.ant-layout-sider-collapsed .brand-name {
+  opacity: 0;
+}
+
+.app-header {
+  /* 与 antd Layout.Header 默认深色保持一致，避免被其样式覆盖后出现白底白字 */
+  background: #001529;
+  padding: 0 24px;
+  height: 58px;
+  line-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.sider-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 17px;
+  border-radius: 6px;
+}
+
+.sider-toggle:hover {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+
+.header-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.88);
+  white-space: nowrap;
+}
+
+/* 深色顶栏上的文字按钮统一用浅蓝，保证对比度 */
+.app-header .ant-btn-link {
+  color: #69b1ff;
+}
+
+.app-header .ant-btn-link:hover {
+  color: #91caff;
+}
+
+.app-content {
+  width: 100%;
+  max-width: 1680px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.page {
+  width: 100%;
+}
+
+.page-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.page-title {
+  margin: 0 0 4px;
+  font-size: 24px;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+.page-subtitle {
+  margin: 0;
+  color: #8c8c8c;
+  font-size: 13px;
+}
+
+.filter-card,
+.table-card,
+.tag-cloud-card,
+.tag-rank-card,
+.stat-card {
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.filter-card {
+  margin-bottom: 16px;
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-search {
+  width: 280px;
+}
+
+.filter-select {
+  width: 160px;
+}
+
+.table-card .ant-card-body {
+  padding: 8px 12px 12px;
+}
+
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 4px 0 12px;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 4px;
+}
+
+.table-toolbar__info {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 32px;
+}
+
+.table-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.muted {
+  color: #8c8c8c;
+}
+
+/* tag input */
+.tag-input {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 4px 11px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  cursor: text;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: #fff;
+}
+
+.tag-input:focus-within {
+  border-color: #1677ff;
+  box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.1);
+}
+
+.tag-input__field {
+  border: none;
+  outline: none;
+  flex: 1;
+  min-width: 140px;
+  font-size: 14px;
+  background: transparent;
+  color: inherit;
+}
+
+.tag-input__field:disabled {
+  cursor: not-allowed;
+}
+
+/* tag cloud */
+.tag-search {
+  width: 240px;
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-height: 80px;
+}
+
+.tag-cloud__item {
+  font-size: 15px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.tag-cloud__count {
+  opacity: 0.72;
+  margin-left: 4px;
+  font-size: 12px;
+}
+
+.tag-rank-card {
+  margin-top: 16px;
+}
+
+.rank-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.rank-name {
+  width: 110px;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rank-progress {
+  flex: 1;
+  margin: 0;
+}
+
+.rank-count {
+  width: 40px;
+  text-align: right;
+  color: #8c8c8c;
+}
+
+/* stats */
+.stat-card {
+  height: 100%;
+}
+
+.stat-row {
+  margin-top: 16px;
+}
+
+.stat-hint {
+  color: #8c8c8c;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.overview-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.overview-row:last-child {
+  border-bottom: none;
+}
+
+/* token gate */
+.token-gate {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 15% 15%, #e6f4ff 0, transparent 45%),
+    radial-gradient(circle at 85% 85%, #f0f5ff 0, transparent 40%),
+    #f5f6f8;
+}
+
+.token-card {
+  width: 100%;
+  max-width: 430px;
+  border-radius: 16px;
+  box-shadow: 0 16px 48px rgba(15, 23, 42, 0.1);
+}
+
+.token-brand {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+
+.token-desc {
+  color: #8c8c8c;
+  margin: 0 0 20px;
+}
+
+.token-submit {
+  margin: 16px 0;
+}
+
+/* H5 */
+.h5-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+}
+
+.h5-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0 18px;
+}
+
+.h5-logout {
+  flex: 0 0 auto;
+  padding: 0;
+  height: 28px;
+  line-height: 28px;
+}
+
+.h5-brand {
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.h5-sub {
+  color: #8c8c8c;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.h5-token-card {
+  border-radius: 14px;
+  margin-top: 24px;
+}
+
+.h5-token-title {
+  margin: 0 0 8px;
+}
+
+.h5-token-desc {
+  color: #8c8c8c;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.h5-token-button {
+  margin-top: 16px;
+}
+
+.h5-toolbar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.h5-toolbar .ant-input-search {
+  flex: 1;
+}
+
+.h5-toolbar .ant-select {
+  width: 132px;
+  flex: 0 0 132px;
+}
+
+.h5-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.h5-item-card {
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+}
+
+.h5-item-card .ant-card-body {
+  padding: 14px;
+}
+
+.h5-item-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.h5-item-title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #1f1f1f;
+  word-break: break-word;
+}
+
+.h5-item-host {
+  color: #8c8c8c;
+  font-size: 12px;
+  margin-top: 4px;
+  word-break: break-all;
+}
+
+.h5-item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.h5-item-time {
+  color: #bfbfbf;
+  font-size: 12px;
+  margin-left: auto;
+}
+
+.h5-item-visits {
+  color: #8c8c8c;
+  font-size: 12px;
+}
+
+.h5-item-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.h5-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .app-content {
+    padding: 16px 12px;
+  }
+
+  .app-header {
+    padding: 0 14px;
+  }
+
+  .page-title {
+    font-size: 21px;
+  }
+
+  .filter-search,
+  .filter-select,
+  .tag-search {
+    width: 100%;
+  }
+
+  .h5-link,
+  .logout-text {
+    display: none;
+  }
+
+  .brand {
+    padding: 0 12px;
+  }
+}

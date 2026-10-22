@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookmark Hub 设置</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="hero">
+        <div class="logo">B</div>
+        <div>
+          <h1>Bookmark Hub</h1>
+          <p>一键收藏网页到自己的服务器</p>
+        </div>
+      </header>
+
+      <label class="field">
+        <span>服务器地址</span>
+        <input id="serverUrl" type="text" placeholder="https://bookmark.example.com" autocomplete="off" />
+      </label>
+
+      <label class="field">
+        <span>API Token</span>
+        <div class="token-row">
+          <input id="token" type="password" placeholder="服务器生成的 Token" autocomplete="off" />
+          <button id="toggleToken" class="icon-button" type="button" title="显示/隐藏">显示</button>
+        </div>
+        <small>首次启动后位于服务器 backend/data/api_token.txt</small>
+      </label>
+
+      <label class="switch-row">
+        <span>在所有网页显示收藏按钮</span>
+        <input id="enabled" type="checkbox" checked />
+      </label>
+
+      <div class="actions">
+        <button id="testBtn" class="button ghost" type="button">测试连接</button>
+        <button id="saveBtn" class="button primary" type="button">保存配置</button>
+      </div>
+
+      <div id="status" class="status"></div>
+
+      <div class="divider"></div>
+
+      <button id="openH5" class="link-button" type="button">
+        打开远程收藏夹（H5） →
+      </button>
+      <p class="hint">
+        临时电脑可直接访问 <code>服务器地址/#/h5?token=Token</code> 查看收藏夹。
+      </p>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

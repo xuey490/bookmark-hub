@@ -1,0 +1,8 @@
+常用命令：
+  systemctl daemon-reload
+  systemctl restart bookmark-hub      # 重启
+  systemctl stop bookmark-hub         # 停止
+  systemctl status bookmark-hub      # 状态
+  systemctl disable bookmark-hub      # 取消开机自启
+  journalctl -u bookmark-hub -f       # 跟踪日志
+  cat /opt/bookmark-hub/backend/data/api_token.txt  # 查看登录 Token
